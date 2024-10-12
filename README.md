@@ -34,3 +34,31 @@ class Solution {
     }
 }
 ```
+## Implementation 2 : Using stack (Iterating from left to right)
+```java
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int n = temperatures.length;
+        if(temperatures == null || n == 0)
+        return new int[0];
+        if(n == 1)
+         return new int[]{0};
+        Stack<Integer> stack = new Stack<>();
+        int[] result = new int[n];
+        for(int i = 0; i < n; i++) {
+            while(!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {
+                int index = stack.pop();
+                result[index] = i - index;
+            }
+            stack.push(i);
+        }
+        while(!stack.isEmpty()) {
+            int index = stack.pop();
+            result[index] = 0;
+        }
+        return result;
+    }
+}
+```
+
+
